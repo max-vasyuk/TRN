@@ -141,8 +141,12 @@ with torch.no_grad():
 # Output the prediction.
 video_name = args.frame_folder if args.frame_folder is not None else args.video_file
 print('RESULT ON ' + video_name)
-for i in range(0, 5):
-    print('{:.3f} -> {}'.format(probs[i], categories[idx[i]]))
+with open('output_categories.txt', 'a') as f:
+  f.write(f'{video_name}\n')
+  for i in range(0, 5):
+      print('{:.3f} -> {}'.format(probs[i], categories[idx[i]]))
+      f.write(f'{categories[idx[i]]}\n')
+  f.write('\n')
 
 # Render output frames with prediction text.
 if args.rendered_output is not None:
